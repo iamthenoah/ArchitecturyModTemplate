@@ -2,7 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.11-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
-    id 'com.modrinth.minotaur' version '2.+'
+    id 'com.modrinth.minotaur' version '2.+' apply false
 }
 
 architectury {
@@ -19,6 +19,7 @@ subprojects {
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
     apply plugin: 'com.gradleup.shadow'
+    apply plugin: 'com.modrinth.minotaur'
 
     configurations {
         compileClasspath.extendsFrom common
@@ -67,13 +68,11 @@ subprojects {
         inputFile.set shadowJar.archiveFile
     }
 
-    if (project.name != 'common') {
-        modrinth {
-            token = System.getenv('MODRINTH_TOKEN')
-            gameVersions = [minecraftVersion]
-            projectId = project.archivesBaseName
-            versionType = version?.split('-')[1] ?: 'alpha'
-            uploadFile = remapJar
-        }
+    modrinth {
+        token = System.getenv('MODRINTH_TOKEN')
+        gameVersions = [minecraftVersion]
+        projectId = project.archivesBaseName
+        versionType = version?.split('-')[1] ?: 'alpha'
+        uploadFile = remapJar
     }
 }
