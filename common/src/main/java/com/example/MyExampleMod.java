@@ -1,8 +1,8 @@
 package com.example;
 
-public final class ExampleMod {
+public final class MyExampleMod {
     
-    public static final String MOD_ID = "examplemod";
+    public static final String MOD_ID = "myexamplemod";
 
     public static void init() {
         // do nothing

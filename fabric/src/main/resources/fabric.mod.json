@@ -14,10 +14,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "${modGroup}.fabric.ExampleModFabric"
+      "${modGroup}.fabric.MyExampleModFabric"
     ],
     "client": [
-      "${modGroup}.fabric.client.ExampleModFabricClient"
+      "${modGroup}.fabric.client.MyExampleModFabricClient"
     ]
   },
   "mixins": [
