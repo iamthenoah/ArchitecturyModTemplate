@@ -26,17 +26,17 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build Forge
-        run: ./gradlew :forge:remapJar
+        run: chmod +x ./gradlew :forge:remapJar
 
       - name: Build Fabric
-        run: ./gradlew :fabric:remapJar
+        run: chmod +x ./gradlew :fabric:remapJar
 
       - name: Publish Forge to Modrinth
-        run: ./gradlew :forge:modrinth
+        run: chmod +x ./gradlew :forge:modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
 
       - name: Publish Fabric to Modrinth
-        run: ./gradlew :fabric:modrinth
+        run: chmod +x ./gradlew :fabric:modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
