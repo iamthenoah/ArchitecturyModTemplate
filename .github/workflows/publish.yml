@@ -10,7 +10,6 @@ jobs:
 
     permissions:
       contents: read
-      packages: write
 
     steps:
       - name: Checkout Repository
@@ -34,14 +33,32 @@ jobs:
       - name: Build Fabric
         run: ./gradlew :fabric:remapJar
 
-      - name: Publish Neoforge to Modrinth
-        run: ./gradlew :neoforge:modrinth
-        env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-          CHANGELOG: ${{ github.event.release.body }}
+      - name: Publish Neoforge
+        uses: Kira-NT/mc-publish@v3
+        with:
+          files: neoforge/build/libs/!(*-@(dev|sources|javadoc)).jar
+          # modrinth 
+          modrinth-id: ${{ vars.MODRINTH_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          # curseforge
+          curseforge-id: ${{ vars.CURSEFORGE_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          # administrative
+          changelog-file: docs/CHANGELOG.md
+          dependencies: |
+            architectury-api(required)
 
-      - name: Publish Fabric to Modrinth
-        run: ./gradlew :fabric:modrinth
-        env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-          CHANGELOG: ${{ github.event.release.body }}
+      - name: Publish Fabric
+        uses: Kira-NT/mc-publish@v3
+        with:
+          files: fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+          # modrinth 
+          modrinth-id: ${{ vars.MODRINTH_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          # curseforge
+          curseforge-id: ${{ vars.CURSEFORGE_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          # administrative
+          changelog-file: docs/CHANGELOG.md
+          dependencies: |
+            architectury-api(required)
