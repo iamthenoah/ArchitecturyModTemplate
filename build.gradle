@@ -80,6 +80,7 @@ subprojects {
         projectId = project.archivesBaseName
         versionType = version?.split('-')[1] ?: 'alpha'
         changelog = System.getenv('CHANGELOG')
+        syncBodyFrom = rootProject.file("docs/README.md").text
         uploadFile = remapJar
     }
 }
