@@ -79,6 +79,14 @@ subprojects {
         gameVersions = [minecraftVersion]
         projectId = project.archivesBaseName
         versionType = version?.split('-')[1] ?: 'alpha'
+        changelog = rootProject.file("docs/CHANGELOG.md").text
+        syncBodyFrom = rootProject.file("docs/COVER.md").text
         uploadFile = remapJar
+
+        dependencies {
+            required.project 'architectury-api'
+        }
     }
+
+    tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 }
